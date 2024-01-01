@@ -11,6 +11,7 @@ func main() {
 	text := "You can edit this code!"
 	enc := c.Encrypt(text, rounds)
 	dec := c.Decrypt(enc, rounds)
+	fmt.Printf("rounds %d\n", rounds)
 	fmt.Printf("encrypt %s\n", enc)
 	fmt.Printf("decrypt %s\n", dec)
 }

@@ -66,7 +66,7 @@ var numeroAlphaMap = map[int8]string{
 }
 
 func (c Cipher) RandomRounds() int8 {
-	return int8(rand.Intn(20) - 1)
+	return int8(rand.Intn(39) - 19)
 }
 
 func (c Cipher) Encrypt(text string, rounds int8) string {
@@ -102,7 +102,7 @@ func (c Cipher) Decrypt(text string, rounds int8) string {
 func (c Cipher) getOffsetPosition(offset int8) int8 {
 	if offset > 26 {
 		return offset - 26
-	} else if offset < 0 {
+	} else if offset <= 0 {
 		return 26 + offset
 	}
 	return offset
