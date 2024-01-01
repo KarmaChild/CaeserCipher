@@ -7,10 +7,10 @@ import (
 
 func main() {
 	c := cipher.Cipher{}
-	//rounds := c.RandomRounds()
-	//text := "Hello World"
-	enc := c.Encrypt("aa", 20)
-	dec := c.Decrypt(enc, 20)
+	rounds := c.RandomRounds()
+	text := "You can edit this code!"
+	enc := c.Encrypt(text, rounds)
+	dec := c.Decrypt(enc, rounds)
 	fmt.Printf("encrypt %s\n", enc)
 	fmt.Printf("decrypt %s\n", dec)
 }
