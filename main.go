@@ -1,9 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"CaeserCipher/cipher"
+	"fmt"
+)
 
 func main() {
-	cipher := Cipher{}
-	rounds := cipher.randomRounds
-	fmt.Printf("%d\n", rounds)
+	c := cipher.Cipher{}
+	//rounds := c.RandomRounds()
+	//text := "Hello World"
+	enc := c.Encrypt("aa", 20)
+	dec := c.Decrypt(enc, 20)
+	fmt.Printf("encrypt %s\n", enc)
+	fmt.Printf("decrypt %s\n", dec)
 }

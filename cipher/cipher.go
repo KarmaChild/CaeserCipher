@@ -1,6 +1,9 @@
-package main
+package cipher
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+)
 
 type Cipher struct {
 }
@@ -63,26 +66,36 @@ var numeroAlphaMap = map[int8]string{
 	26: "z",
 }
 
-func (c Cipher) randomRounds() int8 {
+func (c Cipher) RandomRounds() int8 {
+	rand.Seed(time.Now().UnixNano())
 	return int8(rand.Intn(41) - 20)
 }
 
-func (c Cipher) encrypt(text string, rounds int8) string {
+func (c Cipher) Encrypt(text string, rounds int8) string {
 	var encryptedText = ""
 	for i := 0; i < len(text); i++ {
 		curr := string(text[i])
 		alphaPosition := alphaNumeroMap[curr]
-		encryptedText += numeroAlphaMap[alphaPosition+rounds]
+		newPosition := c.getOffsetPosition(alphaPosition + rounds)
+		encryptedText += numeroAlphaMap[newPosition]
 	}
 	return encryptedText
 }
 
-func (c Cipher) decrypt(text string, rounds int8) string {
+func (c Cipher) Decrypt(text string, rounds int8) string {
 	var decryptedText = ""
 	for i := 0; i < len(text); i++ {
 		curr := string(text[i])
 		alphaPosition := alphaNumeroMap[curr]
-		decryptedText += numeroAlphaMap[alphaPosition-rounds]
+		newPosition := c.getOffsetPosition(alphaPosition - rounds)
+		decryptedText += numeroAlphaMap[newPosition]
 	}
 	return decryptedText
+}
+
+func (c Cipher) getOffsetPosition(offset int8) int8 {
+	if offset > 26 {
+		return offset - 26
+	}
+	return offset
 }
